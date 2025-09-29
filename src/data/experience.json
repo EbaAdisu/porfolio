@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "role": "Tech Team Lead",
+    "company": "Power Ethiopia",
+    "duration": "Recent",
+    "description": "Lead the technology team driving innovation in green energy solutions. Oversaw software development, process automation, and system scalability to optimize operations."
+  },
+  {
+    "id": 2,
+    "role": "Mobile Developer & DSA Instructor",
+    "company": "Africa To Silicon Valley | A2SV",
+    "duration": "Previous",
+    "description": "Built scalable Flutter apps with clean architecture and thorough testing. Taught algorithms to 30 students, mentored 10 individually, improving problem-solving skills."
+  },
+  {
+    "id": 3,
+    "role": "Full Stack Developer & Automation Specialist",
+    "company": "Amplitude Ventures",
+    "duration": "Past",
+    "description": "Developed and maintained backend services using Python for LangGraph LLM projects. Built automation workflows with n8n to streamline operational tasks and improve process efficiency."
+  }
+]
