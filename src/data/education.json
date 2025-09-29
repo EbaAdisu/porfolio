@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "degree": "Bachelors of Science in Software Engineering",
+    "institution": "Addis Ababa University",
+    "year": "2021 - Present",
+    "highlights": "GPA: 3.88/4.00. Ranked 13th best African global university."
+  },
+  {
+    "id": 2,
+    "degree": "Competitive Programming and Coding Academy",
+    "institution": "Africa To Silicon Valley | A2SV",
+    "year": "2024",
+    "highlights": "A2SV graduate with a strong foundation in data structures and algorithms. Recognized as A2SVian of the Year for exceptional performance and dedication."
+  }
+]
