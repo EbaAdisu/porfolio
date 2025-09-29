@@ -33,7 +33,7 @@ const AdminDashboardPage = () => {
       } else {
         toast.error('Failed to fetch projects.');
       }
-    } catch (error) {
+    } catch {
       toast.error('An error occurred while fetching projects.');
     } finally {
       setIsLoading(false);

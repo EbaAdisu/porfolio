@@ -14,7 +14,7 @@ export default function Home() {
           Eba Adisu Kenea
         </h1>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-          I am a software engineer from Ethiopia. While becoming one in an undeveloped country wasn't easy due to having fewer opportunities to succeed, I was always driven by the belief that adversity can be a motivator. I am committed to pushing the boundaries of software development through continuous learning and embracing emerging technologies.
+          I am a software engineer from Ethiopia. While becoming one in an undeveloped country wasn&apos;t easy due to having fewer opportunities to succeed, I was always driven by the belief that adversity can be a motivator. I am committed to pushing the boundaries of software development through continuous learning and embracing emerging technologies.
         </p>
       </section>
 
