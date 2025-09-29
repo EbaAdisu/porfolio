@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -10,21 +10,40 @@ import { Project } from "@/components/ProjectCard";
 
 interface ProjectFormProps {
   project?: Project | null;
-  onSubmit: (project: Omit<Project, 'id'>) => void;
+  onSubmit: (project: Omit<Project, 'id'> | Project) => void;
   onCancel: () => void;
 }
 
 const ProjectForm = ({ project, onSubmit, onCancel }: ProjectFormProps) => {
-  const [title, setTitle] = useState(project?.title || '');
-  const [description, setDescription] = useState(project?.description || '');
-  const [image, setImage] = useState(project?.image || '');
-  const [tags, setTags] = useState(project?.tags.join(', ') || '');
-  const [githubUrl, setGithubUrl] = useState(project?.githubUrl || '');
-  const [liveUrl, setLiveUrl] = useState(project?.liveUrl || '');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [image, setImage] = useState('');
+  const [tags, setTags] = useState('');
+  const [githubUrl, setGithubUrl] = useState('');
+  const [liveUrl, setLiveUrl] = useState('');
+
+  useEffect(() => {
+    if (project) {
+      setTitle(project.title);
+      setDescription(project.description);
+      setImage(project.image);
+      setTags(project.tags.join(', '));
+      setGithubUrl(project.githubUrl);
+      setLiveUrl(project.liveUrl);
+    } else {
+      // Reset form when there's no project (i.e., for 'Add New')
+      setTitle('');
+      setDescription('');
+      setImage('');
+      setTags('');
+      setGithubUrl('');
+      setLiveUrl('');
+    }
+  }, [project]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const newProjectData = {
+    const projectData = {
       title,
       description,
       image,
@@ -32,8 +51,12 @@ const ProjectForm = ({ project, onSubmit, onCancel }: ProjectFormProps) => {
       githubUrl,
       liveUrl,
     };
-    // The actual submission logic will be handled by the parent component
-    // For now, we just call the passed-in onSubmit function
+
+    if (project) {
+      onSubmit({ ...project, ...projectData });
+    } else {
+      onSubmit(projectData);
+    }
   };
 
   return (
