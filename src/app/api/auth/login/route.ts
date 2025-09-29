@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server';
-import { cookies } from 'next/headers';
 
 export async function POST(request: Request) {
   const { token } = await request.json();
@@ -12,14 +11,14 @@ export async function POST(request: Request) {
   }
 
   if (token === adminToken) {
-    const cookieStore = cookies();
-    cookieStore.set('auth_token', token, {
+    const response = new NextResponse('Login successful', { status: 200 });
+    response.cookies.set('auth_token', token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       path: '/',
       maxAge: 60 * 60 * 24, // 1 day
     });
-    return new NextResponse('Login successful', { status: 200 });
+    return response;
   } else {
     return new NextResponse('Invalid token', { status: 401 });
   }
