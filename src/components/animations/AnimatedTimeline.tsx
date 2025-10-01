@@ -4,6 +4,7 @@ import { durations } from '@/animations/configs/durations'
 import { ease } from '@/animations/configs/ease'
 import { gsap } from 'gsap'
 import { useEffect, useRef } from 'react'
+import ExpandableTimelineItem from './ExpandableTimelineItem'
 
 interface TimelineItem {
     id: number
@@ -11,6 +12,7 @@ interface TimelineItem {
     subtitle: string
     date: string
     description: string
+    skills?: string[]
 }
 
 interface AnimatedTimelineProps {
@@ -93,18 +95,14 @@ export default function AnimatedTimeline({ items }: AnimatedTimelineProps) {
                             index % 2 === 0 ? 'pr-8 text-right' : 'ml-auto pl-8'
                         }`}
                     >
-                        <div className="bg-card border rounded-lg p-6 hover:shadow-lg transition-shadow duration-300">
-                            <h3 className="text-xl font-bold mb-1">
-                                {item.title}
-                            </h3>
-                            <h4 className="text-md text-primary font-semibold mb-2">
-                                {item.subtitle}
-                            </h4>
-                            <p className="text-sm text-muted-foreground mb-3">
-                                {item.date}
-                            </p>
-                            <p className="text-sm">{item.description}</p>
-                        </div>
+                        <ExpandableTimelineItem
+                            title={item.title}
+                            subtitle={item.subtitle}
+                            date={item.date}
+                            description={item.description}
+                            skills={item.skills}
+                            isLeft={index % 2 === 0}
+                        />
                     </div>
 
                     {/* Dot */}

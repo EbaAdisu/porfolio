@@ -1,9 +1,9 @@
+import AnimatedNavbar from '@/components/animations/AnimatedNavbar'
 import CustomCursor from '@/components/animations/CustomCursor'
 import PageTransition from '@/components/animations/PageTransition'
 import ScrollProgress from '@/components/animations/ScrollProgress'
 import SmoothScroll from '@/components/animations/SmoothScroll'
 import Footer from '@/components/Footer'
-import Navbar from '@/components/Navbar'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 import type { Metadata } from 'next'
@@ -45,7 +45,7 @@ export default function RootLayout({
                     <ScrollProgress />
                     <SmoothScroll />
                     <div className="flex min-h-screen flex-col">
-                        <Navbar />
+                        <AnimatedNavbar />
                         <main className="flex-grow">
                             <PageTransition>{children}</PageTransition>
                         </main>

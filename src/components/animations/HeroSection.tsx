@@ -5,8 +5,8 @@ import {
     useParallax,
 } from '@/animations/hooks/useHeroAnimation'
 import { useMagneticEffect } from '@/animations/hooks/useMagneticEffect'
+import GlitchText from './GlitchText'
 import ParticleSystem from './ParticleSystem'
-import SplitTextAnimation from './SplitTextAnimation'
 
 interface HeroSectionProps {
     name: string
@@ -21,7 +21,7 @@ export default function HeroSection({ name, description }: HeroSectionProps) {
     return (
         <section
             ref={heroRef}
-            className="relative text-center my-16 overflow-hidden"
+            className="relative text-center my-16 overflow-hidden min-h-[60vh] flex items-center justify-center"
         >
             {/* Particle Background */}
             <div ref={particleRef as any} className="absolute inset-0 -z-10">
@@ -33,13 +33,11 @@ export default function HeroSection({ name, description }: HeroSectionProps) {
 
             {/* Hero Content */}
             <div className="relative z-10 px-4">
-                {/* Animated Name with Magnetic Effect */}
+                {/* Animated Name with Magnetic Effect and Glitch */}
                 <div ref={nameRef as any} className="inline-block mb-4">
-                    <SplitTextAnimation
+                    <GlitchText
                         text={name}
                         className="text-4xl md:text-6xl font-bold tracking-tighter bg-gradient-to-r from-primary via-primary/80 to-primary bg-clip-text text-transparent"
-                        stagger={0.03}
-                        as="h1"
                     />
                 </div>
 
