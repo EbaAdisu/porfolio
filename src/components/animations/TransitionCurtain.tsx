@@ -179,7 +179,7 @@ export default function TransitionCurtain({
     return (
         <div
             ref={curtainRef}
-            className="fixed inset-0 z-[999] bg-gradient-to-br from-primary via-primary/80 to-primary/60 pointer-events-none"
+            className="fixed inset-0 z-[999] bg-gradient-to-br from-primary via-primary/95 to-primary/90 pointer-events-none"
             style={{
                 willChange: 'transform, opacity, clip-path',
             }}

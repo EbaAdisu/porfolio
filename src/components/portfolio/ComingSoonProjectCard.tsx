@@ -28,7 +28,7 @@ const ComingSoonProjectCard = memo(function ComingSoonProjectCard({
     }
 
     return (
-        <Card className="flex flex-col h-full opacity-75 hover:opacity-100 transition-opacity border-dashed">
+        <Card className="flex flex-col h-full opacity-90 hover:opacity-100 transition-opacity border-dashed">
             <CardHeader>
                 <div className="flex items-start justify-between gap-2 mb-2">
                     <CardTitle className="text-xl">{project.title}</CardTitle>

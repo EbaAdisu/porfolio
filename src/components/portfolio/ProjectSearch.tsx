@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { gsap } from 'gsap'
-import { Clock, Filter, Search, X } from 'lucide-react'
+import { Search, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 
 interface ProjectSearchProps {
@@ -27,7 +27,6 @@ export default function ProjectSearch({
     const inputRef = useRef<HTMLInputElement>(null)
     const searchRef = useRef<HTMLDivElement>(null)
     const [isFocused, setIsFocused] = useState(false)
-    const [showSuggestions, setShowSuggestions] = useState(false)
 
     // Animation on mount
     useEffect(() => {
@@ -44,7 +43,7 @@ export default function ProjectSearch({
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
         onSearch(value)
-        setShowSuggestions(value.length > 0)
+        setShowSuggestions(value.length === 0)
     }
 
     const handleClear = () => {
@@ -71,7 +70,10 @@ export default function ProjectSearch({
                     placeholder="Search projects by name, technology, or description..."
                     value={searchQuery}
                     onChange={handleInputChange}
-                    onFocus={() => setIsFocused(true)}
+                    onFocus={() => {
+                        setIsFocused(true)
+                        setShowSuggestions(searchQuery.length === 0)
+                    }}
                     onBlur={() => {
                         setIsFocused(false)
                         // Delay hiding suggestions to allow clicks
@@ -92,76 +94,6 @@ export default function ProjectSearch({
                 )}
             </div>
 
-            {/* Search Suggestions */}
-            {showSuggestions && (
-                <div className="absolute top-full left-0 right-0 mt-2 bg-background border rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto">
-                    {recentSearches.length > 0 && (
-                        <div className="p-3 border-b">
-                            <div className="flex items-center justify-between mb-2">
-                                <div className="flex items-center gap-2">
-                                    <Clock className="w-4 h-4 text-muted-foreground" />
-                                    <span className="text-sm font-medium">
-                                        Recent Searches
-                                    </span>
-                                </div>
-                                <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    onClick={onClearHistory}
-                                    className="h-6 px-2 text-xs"
-                                >
-                                    Clear
-                                </Button>
-                            </div>
-                            <div className="flex flex-wrap gap-2">
-                                {recentSearches
-                                    .slice(0, 5)
-                                    .map((search, index) => (
-                                        <Badge
-                                            key={index}
-                                            variant="secondary"
-                                            className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
-                                            onClick={() =>
-                                                onRecentSearchClick(search)
-                                            }
-                                        >
-                                            {search}
-                                        </Badge>
-                                    ))}
-                            </div>
-                        </div>
-                    )}
-
-                    {/* Quick Filters */}
-                    <div className="p-3">
-                        <div className="flex items-center gap-2 mb-2">
-                            <Filter className="w-4 h-4 text-muted-foreground" />
-                            <span className="text-sm font-medium">
-                                Quick Filters
-                            </span>
-                        </div>
-                        <div className="flex flex-wrap gap-2">
-                            {[
-                                'React',
-                                'Python',
-                                'AI',
-                                'Blockchain',
-                                'Mobile',
-                                'Full-Stack',
-                            ].map((tech) => (
-                                <Badge
-                                    key={tech}
-                                    variant="outline"
-                                    className="cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
-                                    onClick={() => onRecentSearchClick(tech)}
-                                >
-                                    {tech}
-                                </Badge>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            )}
 
             {/* Search Results Count */}
             {searchQuery && (

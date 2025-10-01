@@ -59,7 +59,7 @@ export default function GameLoadingAnimation({
     return (
         <div
             ref={containerRef}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-background/95 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-background/98 backdrop-blur-md"
         >
             <div className="flex flex-col items-center space-y-8">
                 {/* Animated shapes */}

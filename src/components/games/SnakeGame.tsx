@@ -175,7 +175,7 @@ const SnakeGame = () => {
 
                     {/* Game Over Overlay */}
                     {gameOver && (
-                        <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/95 backdrop-blur-sm rounded-lg">
+                        <div className="absolute inset-0 flex flex-col items-center justify-center bg-background/98 backdrop-blur-md rounded-lg">
                             {victory ? (
                                 <>
                                     <p className="text-5xl font-bold text-green-500 mb-2">
