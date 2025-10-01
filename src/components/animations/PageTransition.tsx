@@ -4,7 +4,7 @@ import { durations } from '@/animations/configs/durations'
 import { ease } from '@/animations/configs/ease'
 import { gsap } from 'gsap'
 import { usePathname } from 'next/navigation'
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 
 export default function PageTransition({
     children,
@@ -12,26 +12,30 @@ export default function PageTransition({
     children: React.ReactNode
 }) {
     const pathname = usePathname()
+    const contentRef = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        const tl = gsap.timeline()
+        if (!contentRef.current) return
 
-        // Simple page content animation
-        tl.from('.page-content', {
-            opacity: 0,
-            y: 20,
-            duration: durations.normal || 0.6,
-            ease: ease.smooth || 'power2.out',
-        })
+        const ctx = gsap.context(() => {
+            // Simple fade in animation
+            gsap.fromTo(
+                contentRef.current,
+                {
+                    opacity: 0,
+                    y: 20,
+                },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: durations.normal || 0.6,
+                    ease: ease.smooth || 'power2.out',
+                }
+            )
+        }, contentRef)
 
-        return () => {
-            tl.kill()
-        }
+        return () => ctx.revert()
     }, [pathname])
 
-    return (
-        <div className="page-content">
-            {children}
-        </div>
-    )
+    return <div ref={contentRef}>{children}</div>
 }
