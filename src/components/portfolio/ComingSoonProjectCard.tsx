@@ -11,13 +11,14 @@ import {
 } from '@/components/ui/card'
 import type { ComingSoonProject } from '@/data/project-categories'
 import { BookOpen, Clock, Code2, Github, Layers } from 'lucide-react'
+import { memo } from 'react'
 import ComingSoonBadge from './ComingSoonBadge'
 
 interface ComingSoonProjectCardProps {
     project: ComingSoonProject
 }
 
-export default function ComingSoonProjectCard({
+const ComingSoonProjectCard = memo(function ComingSoonProjectCard({
     project,
 }: ComingSoonProjectCardProps) {
     const difficultyColor = {
@@ -106,4 +107,6 @@ export default function ComingSoonProjectCard({
             </CardFooter>
         </Card>
     )
-}
+})
+
+export default ComingSoonProjectCard

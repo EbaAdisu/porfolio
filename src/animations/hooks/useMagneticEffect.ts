@@ -9,14 +9,20 @@ import { createMagneticEffect, createTiltEffect } from '../utils/magnetic'
  */
 export function useMagneticEffect(options?: MagneticOptions) {
     const elementRef = useRef<HTMLElement>(null)
+    const optionsRef = useRef(options)
+
+    // Update options ref when options change
+    useEffect(() => {
+        optionsRef.current = options
+    }, [options])
 
     useEffect(() => {
         const element = elementRef.current
         if (!element) return
 
-        const cleanup = createMagneticEffect(element, options)
+        const cleanup = createMagneticEffect(element, optionsRef.current)
         return cleanup
-    }, [options])
+    }, []) // Empty dependency array to prevent re-runs
 
     return elementRef
 }
@@ -26,14 +32,22 @@ export function useMagneticEffect(options?: MagneticOptions) {
  */
 export function useTiltEffect(maxTilt?: number) {
     const elementRef = useRef<HTMLElement>(null)
+    const maxTiltRef = useRef(maxTilt)
+
+    // Update maxTilt ref when maxTilt changes
+    useEffect(() => {
+        maxTiltRef.current = maxTilt
+    }, [maxTilt])
 
     useEffect(() => {
         const element = elementRef.current
         if (!element) return
 
-        const cleanup = createTiltEffect(element, { maxTilt })
+        const cleanup = createTiltEffect(element, {
+            maxTilt: maxTiltRef.current,
+        })
         return cleanup
-    }, [maxTilt])
+    }, []) // Empty dependency array to prevent re-runs
 
     return elementRef
 }

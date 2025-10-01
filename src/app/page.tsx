@@ -1,6 +1,5 @@
 'use client'
 
-import { Project } from '@/components/ProjectCard'
 import AnimatedProjectGrid from '@/components/animations/AnimatedProjectGrid'
 import AnimatedTimeline from '@/components/animations/AnimatedTimeline'
 import EnhancedProjectCard from '@/components/animations/EnhancedProjectCard'
@@ -13,9 +12,17 @@ import experienceData from '@/data/experience.json'
 import { comingSoonProjects } from '@/data/project-categories'
 import projectsData from '@/data/projects.json'
 import { useProjectFilter } from '@/hooks/useProjectFilter'
+import { useMemo } from 'react'
 
 export default function Home() {
-    const projects: Project[] = projectsData
+    // Memoize the projects data to prevent unnecessary re-renders
+    const projectsConfig = useMemo(
+        () => ({
+            projects: projectsData,
+            comingSoonProjects,
+        }),
+        []
+    )
 
     const {
         filterState,
@@ -28,10 +35,7 @@ export default function Home() {
         handleRecentSearchClick,
         clearSearchHistory,
         handleCategoryChange,
-    } = useProjectFilter({
-        projects,
-        comingSoonProjects,
-    })
+    } = useProjectFilter(projectsConfig)
 
     return (
         <div className="container mx-auto px-4 py-8">

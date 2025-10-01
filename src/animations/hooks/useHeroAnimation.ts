@@ -64,6 +64,12 @@ export function useHeroAnimation() {
  */
 export function useParallax(speed: number = 0.5) {
     const elementRef = useRef<HTMLElement>(null)
+    const speedRef = useRef(speed)
+
+    // Update speed ref when speed changes
+    useEffect(() => {
+        speedRef.current = speed
+    }, [speed])
 
     useEffect(() => {
         const element = elementRef.current
@@ -71,13 +77,13 @@ export function useParallax(speed: number = 0.5) {
 
         const handleScroll = () => {
             const scrolled = window.pageYOffset
-            const rate = scrolled * speed
+            const rate = scrolled * speedRef.current
             element.style.transform = `translate3d(0, ${rate}px, 0)`
         }
 
         window.addEventListener('scroll', handleScroll, { passive: true })
         return () => window.removeEventListener('scroll', handleScroll)
-    }, [speed])
+    }, []) // Empty dependency array to prevent re-runs
 
     return elementRef
 }

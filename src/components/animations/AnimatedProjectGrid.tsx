@@ -3,7 +3,7 @@
 import { Project } from '@/components/ProjectCard'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 
 // Register GSAP plugins
 if (typeof window !== 'undefined') {
@@ -16,7 +16,7 @@ interface AnimatedProjectGridProps {
     className?: string
 }
 
-export default function AnimatedProjectGrid({
+const AnimatedProjectGrid = memo(function AnimatedProjectGrid({
     projects,
     children,
     className = '',
@@ -65,7 +65,7 @@ export default function AnimatedProjectGrid({
                 }
             })
         }
-    }, [projects])
+    }, []) // Remove projects dependency to prevent re-renders
 
     // Handle grid transitions when projects change
     useEffect(() => {
@@ -109,7 +109,7 @@ export default function AnimatedProjectGrid({
                 onComplete: () => setIsAnimating(false),
             })
         })
-    }, [projects, isAnimating])
+    }, [projects.length]) // Remove isAnimating from dependencies to prevent infinite loops
 
     return (
         <div
@@ -120,7 +120,9 @@ export default function AnimatedProjectGrid({
             {children}
         </div>
     )
-}
+})
+
+export default AnimatedProjectGrid
 
 // Masonry layout component for varied card heights
 export function MasonryProjectGrid({
@@ -187,7 +189,7 @@ export function MasonryProjectGrid({
             window.removeEventListener('resize', setupMasonry)
             observer.disconnect()
         }
-    }, [projects])
+    }, [projects.length]) // Only depend on projects.length to prevent unnecessary re-renders
 
     return (
         <div

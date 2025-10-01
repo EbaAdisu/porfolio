@@ -15,13 +15,13 @@ import {
 import { gsap } from 'gsap'
 import Image from 'next/image'
 import Link from 'next/link'
-import { useEffect, useRef, useState } from 'react'
+import { memo, useEffect, useRef, useState } from 'react'
 
 interface EnhancedProjectCardProps {
     project: Project
 }
 
-export default function EnhancedProjectCard({
+const EnhancedProjectCard = memo(function EnhancedProjectCard({
     project,
 }: EnhancedProjectCardProps) {
     const cardRef = useRef<HTMLDivElement>(null)
@@ -270,4 +270,6 @@ export default function EnhancedProjectCard({
             </Card>
         </div>
     )
-}
+})
+
+export default EnhancedProjectCard

@@ -74,7 +74,15 @@ export function useProjectFilter({
 
     // Update filter state
     const updateFilter = useCallback((updates: Partial<FilterState>) => {
-        setFilterState((prev) => ({ ...prev, ...updates }))
+        setFilterState((prev) => {
+            // Only update if there are actual changes
+            const hasChanges = Object.keys(updates).some(
+                (key) =>
+                    prev[key as keyof FilterState] !==
+                    updates[key as keyof FilterState]
+            )
+            return hasChanges ? { ...prev, ...updates } : prev
+        })
     }, [])
 
     // Handle search
@@ -85,7 +93,7 @@ export function useProjectFilter({
                 saveSearchHistory(query)
             }
         },
-        [updateFilter, saveSearchHistory]
+        [updateFilter]
     )
 
     // Clear search

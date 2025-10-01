@@ -11,10 +11,12 @@ interface HeroSectionProps {
     description: string
 }
 
+const MAGNETIC_OPTIONS = { strength: 0.2, maxDistance: 15 }
+
 export default function HeroSection({ name, description }: HeroSectionProps) {
     const heroRef = useHeroAnimation()
     const particleRef = useParallax(-0.3)
-    const nameRef = useMagneticEffect({ strength: 0.2, maxDistance: 15 })
+    const nameRef = useMagneticEffect(MAGNETIC_OPTIONS)
 
     return (
         <section
