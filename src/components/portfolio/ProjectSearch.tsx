@@ -1,6 +1,5 @@
 'use client'
 
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { gsap } from 'gsap'
@@ -43,18 +42,15 @@ export default function ProjectSearch({
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value
         onSearch(value)
-        setShowSuggestions(value.length === 0)
     }
 
     const handleClear = () => {
         onClear()
-        setShowSuggestions(false)
         inputRef.current?.focus()
     }
 
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Escape') {
-            setShowSuggestions(false)
             inputRef.current?.blur()
         }
     }
@@ -70,15 +66,8 @@ export default function ProjectSearch({
                     placeholder="Search projects by name, technology, or description..."
                     value={searchQuery}
                     onChange={handleInputChange}
-                    onFocus={() => {
-                        setIsFocused(true)
-                        setShowSuggestions(searchQuery.length === 0)
-                    }}
-                    onBlur={() => {
-                        setIsFocused(false)
-                        // Delay hiding suggestions to allow clicks
-                        setTimeout(() => setShowSuggestions(false), 200)
-                    }}
+                    onFocus={() => setIsFocused(true)}
+                    onBlur={() => setIsFocused(false)}
                     onKeyDown={handleKeyDown}
                     className="pl-10 pr-10 h-12 text-base"
                 />
@@ -93,7 +82,6 @@ export default function ProjectSearch({
                     </Button>
                 )}
             </div>
-
 
             {/* Search Results Count */}
             {searchQuery && (
