@@ -328,6 +328,10 @@ src/components/animations/PageTransition.tsx ✅ - Integrated TransitionCurtain
 -   ✨ **NEW:** GameLoadingAnimation component
 -   ✨ **NEW:** AnimatedScoreCounter component
 -   ✨ **NEW:** Enhanced SnakeGame with all animations
+-   ✨ **LATEST:** GameCard component for game selection
+-   ✨ **LATEST:** Game selection interface (no auto-run)
+-   ✨ **LATEST:** Game registry system (`games.ts`)
+-   ✨ **LATEST:** Back navigation from active games
 
 ---
 

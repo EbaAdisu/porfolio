@@ -75,7 +75,7 @@ export default function AnimatedNavbar() {
                 isScrolled ? 'shadow-md' : ''
             }`}
         >
-            <div className="container flex h-16 items-center">
+            <div className="container mx-auto px-4 flex h-16 items-center">
                 <Link href="/" className="mr-6 flex items-center space-x-2">
                     <span className="font-bold">Eba Adisu</span>
                 </Link>

@@ -34,7 +34,7 @@ export default function GlitchText({
         setIsGlitching(true)
     }
 
-    // If reduced motion is preferred, just show the text without effects
+    // Always render the text, with or without effects
     if (prefersReducedMotion) {
         return <span className={className}>{text}</span>
     }

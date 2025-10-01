@@ -49,6 +49,16 @@ export default function Home() {
 
     return (
         <div className="container mx-auto px-4 py-8">
+            {/* Debug: Simple test content */}
+            <div className="mb-8 p-4 bg-green-100 dark:bg-green-900/20 rounded-lg">
+                <h1 className="text-2xl font-bold text-green-800 dark:text-green-200">
+                    Debug: Content is rendering
+                </h1>
+                <p className="text-green-700 dark:text-green-300">
+                    If you can see this, the page is working correctly.
+                </p>
+            </div>
+
             <HeroSection
                 name="Eba Adisu Kenea"
                 description="I am a software engineer from Ethiopia. While becoming one in an undeveloped country wasn't easy due to having fewer opportunities to succeed, I was always driven by the belief that adversity can be a motivator. I am committed to pushing the boundaries of software development through continuous learning and embracing emerging technologies."
