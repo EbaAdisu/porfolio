@@ -1,50 +1,59 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import { Toaster } from "@/components/ui/sonner"
+import CustomCursor from '@/components/animations/CustomCursor'
+import PageTransition from '@/components/animations/PageTransition'
+import ScrollProgress from '@/components/animations/ScrollProgress'
+import SmoothScroll from '@/components/animations/SmoothScroll'
+import Footer from '@/components/Footer'
+import Navbar from '@/components/Navbar'
+import { ThemeProvider } from '@/components/theme-provider'
+import { Toaster } from '@/components/ui/sonner'
+import type { Metadata } from 'next'
+import { Geist, Geist_Mono } from 'next/font/google'
+import './globals.css'
 
 const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+    variable: '--font-geist-sans',
+    subsets: ['latin'],
+})
 
 const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+    variable: '--font-geist-mono',
+    subsets: ['latin'],
+})
 
 export const metadata: Metadata = {
-  title: "Personal Portfolio",
-  description: "A modern, dynamic personal portfolio website.",
-};
+    title: 'Personal Portfolio',
+    description: 'A modern, dynamic personal portfolio website.',
+}
 
 export default function RootLayout({
-  children,
+    children,
 }: Readonly<{
-  children: React.ReactNode;
+    children: React.ReactNode
 }>) {
-  return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <div className="flex min-h-screen flex-col">
-            <Navbar />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </div>
-          <Toaster />
-        </ThemeProvider>
-      </body>
-    </html>
-  );
+    return (
+        <html lang="en" suppressHydrationWarning>
+            <body
+                className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+            >
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                >
+                    <CustomCursor />
+                    <ScrollProgress />
+                    <SmoothScroll />
+                    <div className="flex min-h-screen flex-col">
+                        <Navbar />
+                        <main className="flex-grow">
+                            <PageTransition>{children}</PageTransition>
+                        </main>
+                        <Footer />
+                    </div>
+                    <Toaster />
+                </ThemeProvider>
+            </body>
+        </html>
+    )
 }
