@@ -27,6 +27,7 @@ export default function EnhancedProjectCard({
     const cardRef = useRef<HTMLDivElement>(null)
     const imageRef = useRef<HTMLDivElement>(null)
     const [isHovered, setIsHovered] = useState(false)
+    const [isFlipped, setIsFlipped] = useState(false)
     const tiltRef = useTiltEffect(10)
     const revealRef = useScrollReveal()
 
@@ -65,14 +66,20 @@ export default function EnhancedProjectCard({
             })
         }
 
+        const onCardClick = () => {
+            setIsFlipped(!isFlipped)
+        }
+
         card.addEventListener('mouseenter', onMouseEnter)
         card.addEventListener('mouseleave', onMouseLeave)
+        card.addEventListener('click', onCardClick)
 
         return () => {
             card.removeEventListener('mouseenter', onMouseEnter)
             card.removeEventListener('mouseleave', onMouseLeave)
+            card.removeEventListener('click', onCardClick)
         }
-    }, [])
+    }, [isFlipped])
 
     return (
         <div
@@ -82,7 +89,7 @@ export default function EnhancedProjectCard({
                     ;(tiltRef as any).current = el
                 }
             }}
-            style={{ transformStyle: 'preserve-3d' }}
+            className="cursor-pointer h-full"
         >
             <Card
                 ref={cardRef}
@@ -100,84 +107,166 @@ export default function EnhancedProjectCard({
                     style={{ transform: 'translateZ(-1px)' }}
                 />
 
-                <CardHeader>
-                    <CardTitle className="flex items-center justify-between">
-                        <span>{project.title}</span>
-                        {project.category && (
-                            <Badge variant="secondary" className="text-xs">
-                                {project.category}
-                            </Badge>
-                        )}
-                    </CardTitle>
-                </CardHeader>
+                {!isFlipped ? (
+                    // Front Side
+                    <>
+                        <CardHeader>
+                            <CardTitle className="flex items-center justify-between">
+                                <span>{project.title}</span>
+                                {project.category && (
+                                    <Badge
+                                        variant="secondary"
+                                        className="text-xs"
+                                    >
+                                        {project.category}
+                                    </Badge>
+                                )}
+                            </CardTitle>
+                        </CardHeader>
 
-                <CardContent className="flex-grow">
-                    {/* Image with Parallax */}
-                    <div className="relative h-48 w-full mb-4 overflow-hidden rounded-md">
-                        <div ref={imageRef} className="relative h-full w-full">
-                            <Image
-                                src={project.image}
-                                alt={project.title}
-                                fill
-                                className="object-cover"
-                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                            />
-                        </div>
+                        <CardContent className="flex-grow">
+                            {/* Image with Parallax */}
+                            <div className="relative h-48 w-full mb-4 overflow-hidden rounded-md">
+                                <div
+                                    ref={imageRef}
+                                    className="relative h-full w-full"
+                                >
+                                    <Image
+                                        src={project.image}
+                                        alt={project.title}
+                                        fill
+                                        className="object-cover"
+                                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    />
+                                </div>
 
-                        {/* Overlay on Hover */}
-                        <div
-                            className={`absolute inset-0 bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-300 ${
-                                isHovered ? 'opacity-100' : 'opacity-0'
-                            }`}
-                        >
-                            <div className="absolute bottom-4 left-4 right-4 text-white">
-                                <p className="text-sm font-medium">
-                                    View Details
+                                {/* Overlay on Hover */}
+                                <div
+                                    className={`absolute inset-0 bg-gradient-to-t from-black/60 to-transparent transition-opacity duration-300 ${
+                                        isHovered ? 'opacity-100' : 'opacity-0'
+                                    }`}
+                                >
+                                    <div className="absolute bottom-4 left-4 right-4 text-white">
+                                        <p className="text-sm font-medium">
+                                            Click to flip
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <p className="text-muted-foreground mb-4 line-clamp-3">
+                                {project.description}
+                            </p>
+
+                            {/* Tags with Stagger Animation */}
+                            <div className="flex flex-wrap gap-2">
+                                {project.tags.map((tag, index) => (
+                                    <span
+                                        key={tag}
+                                        className="tag text-xs font-semibold uppercase tracking-wider bg-muted text-muted-foreground px-2 py-1 rounded-full transition-colors hover:bg-primary hover:text-primary-foreground"
+                                        style={{
+                                            animationDelay: `${index * 0.1}s`,
+                                        }}
+                                    >
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+                        </CardContent>
+
+                        <CardFooter className="flex justify-end gap-2 mt-auto">
+                            <Button asChild variant="outline" size="sm">
+                                <Link
+                                    href={project.githubUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    GitHub
+                                </Link>
+                            </Button>
+                            <Button asChild size="sm">
+                                <Link
+                                    href={project.liveUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Live Demo
+                                </Link>
+                            </Button>
+                        </CardFooter>
+                    </>
+                ) : (
+                    // Back Side
+                    <>
+                        <CardHeader>
+                            <CardTitle className="flex items-center justify-between">
+                                <span>Project Details</span>
+                                <Badge variant="outline" className="text-xs">
+                                    Click to flip back
+                                </Badge>
+                            </CardTitle>
+                        </CardHeader>
+
+                        <CardContent className="flex-grow space-y-4">
+                            <div>
+                                <h4 className="font-semibold mb-2">
+                                    Technologies Used
+                                </h4>
+                                <div className="flex flex-wrap gap-2">
+                                    {project.tags.map((tag, index) => (
+                                        <Badge
+                                            key={tag}
+                                            variant="secondary"
+                                            className="text-xs"
+                                        >
+                                            {tag}
+                                        </Badge>
+                                    ))}
+                                </div>
+                            </div>
+
+                            <div>
+                                <h4 className="font-semibold mb-2">
+                                    Description
+                                </h4>
+                                <p className="text-sm text-muted-foreground">
+                                    {project.description}
                                 </p>
                             </div>
-                        </div>
-                    </div>
 
-                    <p className="text-muted-foreground mb-4 line-clamp-3">
-                        {project.description}
-                    </p>
+                            <div>
+                                <h4 className="font-semibold mb-2">Features</h4>
+                                <ul className="text-sm text-muted-foreground space-y-1">
+                                    <li>• Responsive design</li>
+                                    <li>• Modern UI/UX</li>
+                                    <li>• Performance optimized</li>
+                                    <li>• Cross-browser compatible</li>
+                                </ul>
+                            </div>
+                        </CardContent>
 
-                    {/* Tags with Stagger Animation */}
-                    <div className="flex flex-wrap gap-2">
-                        {project.tags.map((tag, index) => (
-                            <span
-                                key={tag}
-                                className="tag text-xs font-semibold uppercase tracking-wider bg-muted text-muted-foreground px-2 py-1 rounded-full transition-colors hover:bg-primary hover:text-primary-foreground"
-                                style={{
-                                    animationDelay: `${index * 0.1}s`,
-                                }}
-                            >
-                                {tag}
-                            </span>
-                        ))}
-                    </div>
-                </CardContent>
-
-                <CardFooter className="flex justify-end gap-2 mt-auto">
-                    <Button asChild variant="outline" size="sm">
-                        <Link
-                            href={project.githubUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            GitHub
-                        </Link>
-                    </Button>
-                    <Button asChild size="sm">
-                        <Link
-                            href={project.liveUrl}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                        >
-                            Live Demo
-                        </Link>
-                    </Button>
-                </CardFooter>
+                        <CardFooter className="flex justify-center gap-2 mt-auto">
+                            <Button asChild variant="outline" size="sm">
+                                <Link
+                                    href={project.githubUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    View Code
+                                </Link>
+                            </Button>
+                            <Button asChild size="sm">
+                                <Link
+                                    href={project.liveUrl}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    Try Demo
+                                </Link>
+                            </Button>
+                        </CardFooter>
+                    </>
+                )}
             </Card>
         </div>
     )

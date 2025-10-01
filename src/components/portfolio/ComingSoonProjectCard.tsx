@@ -10,7 +10,7 @@ import {
     CardTitle,
 } from '@/components/ui/card'
 import type { ComingSoonProject } from '@/data/project-categories'
-import { Clock, Code2, Layers } from 'lucide-react'
+import { BookOpen, Clock, Code2, Github, Layers } from 'lucide-react'
 import ComingSoonBadge from './ComingSoonBadge'
 
 interface ComingSoonProjectCardProps {
@@ -96,9 +96,11 @@ export default function ComingSoonProjectCard({
 
             <CardFooter className="flex gap-2">
                 <Button variant="outline" className="flex-1" disabled>
-                    Notify Me
+                    <Github className="w-4 h-4 mr-2" />
+                    Repository
                 </Button>
                 <Button variant="ghost" className="flex-1" disabled>
+                    <BookOpen className="w-4 h-4 mr-2" />
                     Learn More
                 </Button>
             </CardFooter>
