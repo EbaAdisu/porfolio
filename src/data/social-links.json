@@ -1,0 +1,27 @@
+[
+    {
+        "name": "GitHub",
+        "href": "https://github.com/EbaAdisu",
+        "icon": "github",
+        "description": "Visit my GitHub profile to see my code repositories and contributions"
+    },
+    {
+        "name": "LinkedIn",
+        "href": "https://www.linkedin.com/in/eba-adisu-kenea/",
+        "icon": "linkedin",
+        "description": "Connect with me on LinkedIn for professional networking"
+    },
+    {
+        "name": "LeetCode",
+        "href": "https://leetcode.com/u/ebaadisu",
+        "icon": "leetcode",
+        "description": "Check out my coding challenges and solutions on LeetCode"
+    },
+    {
+        "name": "Codeforces",
+        "href": "#",
+        "icon": "codeforces",
+        "description": "Coming soon - My competitive programming profile",
+        "placeholder": true
+    }
+]
