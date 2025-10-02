@@ -15,6 +15,7 @@ import {
     useThemeCustomization,
 } from '@/hooks/useThemeCustomization'
 import { allThemes } from '@/lib/theme-presets'
+import { getThemeMode } from '@/lib/theme-system'
 import { Moon, Palette, Settings, Sun } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import * as React from 'react'
@@ -34,9 +35,13 @@ export function ThemeToggle() {
     const handleThemeSelect = (themeId: string) => {
         console.log('🎯 ThemeToggle: Selecting theme:', themeId)
         setTheme(themeId)
-        // Also update next-themes for dark/light detection
-        if (themeId === 'light' || themeId === 'dark') {
-            setNextTheme(themeId)
+
+        // Determine if theme is light or dark and update next-themes
+        const selectedTheme = allAvailableThemes.find((t) => t.id === themeId)
+        if (selectedTheme) {
+            const baseTheme = getThemeMode(selectedTheme)
+            console.log('🎨 Setting base theme to:', baseTheme, 'for', themeId)
+            setNextTheme(baseTheme)
         }
     }
 

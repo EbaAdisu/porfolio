@@ -504,3 +504,21 @@ export function meetsWCAGAAA(
     const ratio = getContrastRatio(foreground, background)
     return largeText ? ratio >= 4.5 : ratio >= 7
 }
+
+// ============================================================================
+// Theme Classification
+// ============================================================================
+
+/**
+ * Determines if a theme is light or dark based on its background lightness
+ * @param theme - The theme configuration to check
+ * @returns 'light' or 'dark'
+ */
+export function getThemeMode(theme: ThemeConfig): 'light' | 'dark' {
+    const bgColor = theme.colors.background
+    const lightnessMatch = bgColor.match(/oklch\(([0-9.]+)/)
+    const lightness = lightnessMatch ? parseFloat(lightnessMatch[1]) : 0.5
+
+    // OKLCH lightness > 0.5 indicates a light theme
+    return lightness > 0.5 ? 'light' : 'dark'
+}

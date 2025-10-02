@@ -3,7 +3,7 @@
 import { useThemeCustomization } from '@/hooks/useThemeCustomization'
 import { themeRegistry } from '@/lib/theme-presets'
 import { getCustomThemeFromURL, getThemeFromURL } from '@/lib/theme-storage'
-import { applyTheme, ThemeConfig } from '@/lib/theme-system'
+import { applyTheme, getThemeMode, ThemeConfig } from '@/lib/theme-system'
 import {
     ThemeProvider as NextThemesProvider,
     useTheme as useNextTheme,
@@ -24,7 +24,7 @@ export function ThemeProvider({ children, ...props }: ThemeProviderProps) {
  * Handles custom themes and applies them with animations
  */
 function EnhancedThemeProvider({ children }: { children: React.ReactNode }) {
-    const { theme: nextTheme } = useNextTheme()
+    const { theme: nextTheme, setTheme: setNextTheme } = useNextTheme()
     const {
         currentTheme,
         customThemes,
@@ -72,22 +72,39 @@ function EnhancedThemeProvider({ children }: { children: React.ReactNode }) {
 
         if (themeConfig) {
             console.log('✨ Found theme config:', themeConfig.name)
+
+            // Determine base theme (light/dark) for next-themes
+            const baseTheme = getThemeMode(themeConfig)
+            console.log('🎨 Setting base theme to:', baseTheme)
+
+            // Update next-themes to set correct base class
+            if (setNextTheme) {
+                setNextTheme(baseTheme)
+            }
+
             // Apply theme CSS variables
             applyTheme(themeConfig)
         } else {
             console.warn('⚠️ Theme not found:', currentTheme)
         }
-    }, [currentTheme, customThemes, isInitialized])
+    }, [currentTheme, customThemes, isInitialized, setNextTheme])
 
-    // Sync with next-themes
+    // Sync with next-themes only for direct theme changes
+    // Don't sync when nextTheme is just 'light' or 'dark' for base styling
     React.useEffect(() => {
-        if (nextTheme && nextTheme !== currentTheme) {
-            // Only sync if it's a preset theme
-            if (themeRegistry[nextTheme]) {
+        if (!isInitialized) return
+
+        // Only sync if user directly selected 'light' or 'dark' AND currentTheme is also 'light' or 'dark'
+        // This prevents overriding custom themes when we set light/dark for base styling
+        if (nextTheme && (nextTheme === 'light' || nextTheme === 'dark')) {
+            // Only apply if current theme is not a custom theme
+            const isCustomTheme =
+                currentTheme !== 'light' && currentTheme !== 'dark'
+            if (!isCustomTheme && nextTheme !== currentTheme) {
                 setTheme(nextTheme)
             }
         }
-    }, [nextTheme, currentTheme, setTheme])
+    }, [nextTheme, currentTheme, setTheme, isInitialized])
 
     return <>{children}</>
 }
