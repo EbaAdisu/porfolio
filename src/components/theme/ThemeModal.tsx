@@ -19,8 +19,8 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ThemeConfig } from '@/lib/theme-system'
-import { Palette, Plus, Settings, Trash2 } from 'lucide-react'
-import { useState } from 'react'
+import { Palette, Plus, Settings, Trash2, X } from 'lucide-react'
+import { useEffect, useRef, useState } from 'react'
 import { ThemeCustomizer } from './ThemeCustomizer'
 import { ThemePicker } from './ThemePicker'
 import { ThemeShareButton } from './ThemeShareButton'
@@ -52,6 +52,41 @@ export function ThemeModal({
     const [customizingTheme, setCustomizingTheme] =
         useState<ThemeConfig | null>(null)
     const [themeToDelete, setThemeToDelete] = useState<string | null>(null)
+    const modalRef = useRef<HTMLDivElement>(null)
+
+    // Handle escape key to close modal
+    useEffect(() => {
+        const handleEscape = (e: KeyboardEvent) => {
+            if (e.key === 'Escape' && isOpen) {
+                onClose()
+            }
+        }
+
+        document.addEventListener('keydown', handleEscape)
+        return () => document.removeEventListener('keydown', handleEscape)
+    }, [isOpen, onClose])
+
+    // Handle click outside to close modal
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (
+                isOpen &&
+                modalRef.current &&
+                !modalRef.current.contains(e.target as Node)
+            ) {
+                onClose()
+            }
+        }
+
+        if (isOpen) {
+            // Use capture phase to ensure we catch the event
+            document.addEventListener('mousedown', handleClickOutside, true)
+        }
+
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside, true)
+        }
+    }, [isOpen, onClose])
 
     if (!isOpen) return null
 
@@ -84,8 +119,15 @@ export function ThemeModal({
     return (
         <>
             {/* Main Modal */}
-            <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
-                <div className="relative w-full max-w-6xl max-h-[90vh] mx-4 bg-card rounded-lg shadow-lg border overflow-hidden">
+            <div
+                className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm"
+                role="dialog"
+                aria-modal="true"
+            >
+                <div
+                    ref={modalRef}
+                    className="relative w-full max-w-6xl max-h-[90vh] mx-4 bg-card rounded-lg shadow-lg border overflow-hidden"
+                >
                     {/* Header */}
                     <div className="flex items-center justify-between p-6 border-b">
                         <div className="flex items-center gap-4">
@@ -100,25 +142,15 @@ export function ThemeModal({
                                 </p>
                             </div>
                         </div>
-                        <button
+                        <Button
+                            variant="ghost"
+                            size="icon"
                             onClick={onClose}
-                            className="rounded-full p-2 hover:bg-accent transition-colors"
+                            className="rounded-full"
+                            aria-label="Close theme settings"
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="24"
-                                height="24"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                            >
-                                <line x1="18" y1="6" x2="6" y2="18" />
-                                <line x1="6" y1="6" x2="18" y2="18" />
-                            </svg>
-                        </button>
+                            <X className="h-5 w-5" />
+                        </Button>
                     </div>
 
                     {/* Tabs */}
