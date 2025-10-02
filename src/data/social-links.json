@@ -19,9 +19,8 @@
     },
     {
         "name": "Codeforces",
-        "href": "#",
+        "href": "https://codeforces.com/profile/ebaadisu2",
         "icon": "codeforces",
-        "description": "Coming soon - My competitive programming profile",
-        "placeholder": true
+        "description": "My competitive programming profile"
     }
 ]
