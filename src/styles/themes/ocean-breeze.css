@@ -1,0 +1,53 @@
+/**
+ * Ocean Breeze Theme
+ * Refreshing blue and teal ocean-inspired colors
+ */
+
+.theme-ocean-breeze {
+    /* Base */
+    --background: oklch(0.96 0.02 220);
+    --foreground: oklch(0.22 0.04 220);
+
+    /* Component */
+    --card: oklch(0.98 0.01 220);
+    --card-foreground: oklch(0.22 0.04 220);
+    --popover: oklch(0.98 0.01 220);
+    --popover-foreground: oklch(0.22 0.04 220);
+
+    /* Semantic */
+    --primary: oklch(0.55 0.18 220);
+    --primary-foreground: oklch(0.98 0.01 220);
+    --secondary: oklch(0.9 0.03 220);
+    --secondary-foreground: oklch(0.28 0.04 220);
+    --muted: oklch(0.92 0.02 220);
+    --muted-foreground: oklch(0.52 0.03 220);
+    --accent: oklch(0.6 0.2 195);
+    --accent-foreground: oklch(0.98 0.01 195);
+    --destructive: oklch(0.58 0.24 25);
+    --destructive-foreground: oklch(0.98 0 0);
+
+    /* UI */
+    --border: oklch(0.86 0.03 220);
+    --input: oklch(0.88 0.02 220);
+    --ring: oklch(0.55 0.18 220);
+
+    /* Charts */
+    --chart-1: oklch(0.58 0.2 220);
+    --chart-2: oklch(0.62 0.18 195);
+    --chart-3: oklch(0.55 0.16 205);
+    --chart-4: oklch(0.6 0.19 185);
+    --chart-5: oklch(0.56 0.17 235);
+
+    /* Sidebar */
+    --sidebar: oklch(0.97 0.01 220);
+    --sidebar-foreground: oklch(0.22 0.04 220);
+    --sidebar-primary: oklch(0.55 0.18 220);
+    --sidebar-primary-foreground: oklch(0.98 0.01 220);
+    --sidebar-accent: oklch(0.9 0.03 220);
+    --sidebar-accent-foreground: oklch(0.28 0.04 220);
+    --sidebar-border: oklch(0.86 0.03 220);
+    --sidebar-ring: oklch(0.55 0.18 220);
+
+    /* Other */
+    --radius: 0.75rem;
+}

@@ -1,0 +1,53 @@
+/**
+ * Sunset Orange Theme
+ * Warm orange and pink gradients reminiscent of sunset
+ */
+
+.theme-sunset-orange {
+    /* Base */
+    --background: oklch(0.97 0.02 40);
+    --foreground: oklch(0.25 0.05 30);
+
+    /* Component */
+    --card: oklch(0.99 0.01 40);
+    --card-foreground: oklch(0.25 0.05 30);
+    --popover: oklch(0.99 0.01 40);
+    --popover-foreground: oklch(0.25 0.05 30);
+
+    /* Semantic */
+    --primary: oklch(0.6 0.22 35);
+    --primary-foreground: oklch(0.98 0.01 35);
+    --secondary: oklch(0.92 0.04 40);
+    --secondary-foreground: oklch(0.3 0.05 40);
+    --muted: oklch(0.94 0.03 40);
+    --muted-foreground: oklch(0.5 0.04 35);
+    --accent: oklch(0.65 0.24 15);
+    --accent-foreground: oklch(0.98 0.01 15);
+    --destructive: oklch(0.55 0.25 25);
+    --destructive-foreground: oklch(0.98 0 0);
+
+    /* UI */
+    --border: oklch(0.88 0.04 40);
+    --input: oklch(0.9 0.03 40);
+    --ring: oklch(0.6 0.22 35);
+
+    /* Charts */
+    --chart-1: oklch(0.65 0.24 35);
+    --chart-2: oklch(0.7 0.22 15);
+    --chart-3: oklch(0.6 0.2 50);
+    --chart-4: oklch(0.68 0.23 5);
+    --chart-5: oklch(0.62 0.21 45);
+
+    /* Sidebar */
+    --sidebar: oklch(0.98 0.01 40);
+    --sidebar-foreground: oklch(0.25 0.05 30);
+    --sidebar-primary: oklch(0.6 0.22 35);
+    --sidebar-primary-foreground: oklch(0.98 0.01 35);
+    --sidebar-accent: oklch(0.92 0.04 40);
+    --sidebar-accent-foreground: oklch(0.3 0.05 40);
+    --sidebar-border: oklch(0.88 0.04 40);
+    --sidebar-ring: oklch(0.6 0.22 35);
+
+    /* Other */
+    --radius: 0.5rem;
+}

@@ -35,14 +35,16 @@ export default function AnimatedNavbar() {
 
         const ctx = gsap.context(() => {
             const links = linksRef.current?.querySelectorAll('.nav-link')
-            gsap.from(links, {
-                y: -20,
-                opacity: 0,
-                duration: durations.default,
-                stagger: 0.1,
-                ease: ease.smooth,
-                delay: 0.2,
-            })
+            if (links && links.length > 0) {
+                gsap.from(links, {
+                    y: -20,
+                    opacity: 0,
+                    duration: durations.default,
+                    stagger: 0.1,
+                    ease: ease.smooth,
+                    delay: 0.2,
+                })
+            }
         }, linksRef)
 
         return () => ctx.revert()

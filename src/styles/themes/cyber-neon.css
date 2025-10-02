@@ -1,0 +1,53 @@
+/**
+ * Cyber Neon Theme
+ * Futuristic neon colors with dark background
+ */
+
+.theme-cyber-neon {
+    /* Base */
+    --background: oklch(0.12 0.02 280);
+    --foreground: oklch(0.95 0.03 180);
+
+    /* Component */
+    --card: oklch(0.16 0.03 280);
+    --card-foreground: oklch(0.95 0.03 180);
+    --popover: oklch(0.16 0.03 280);
+    --popover-foreground: oklch(0.95 0.03 180);
+
+    /* Semantic */
+    --primary: oklch(0.7 0.28 180);
+    --primary-foreground: oklch(0.1 0.02 280);
+    --secondary: oklch(0.25 0.04 280);
+    --secondary-foreground: oklch(0.95 0.03 180);
+    --muted: oklch(0.22 0.03 280);
+    --muted-foreground: oklch(0.65 0.02 180);
+    --accent: oklch(0.75 0.3 320);
+    --accent-foreground: oklch(0.1 0.02 320);
+    --destructive: oklch(0.65 0.28 0);
+    --destructive-foreground: oklch(0.98 0 0);
+
+    /* UI */
+    --border: oklch(0.3 0.15 180);
+    --input: oklch(0.25 0.12 180);
+    --ring: oklch(0.7 0.28 180);
+
+    /* Charts */
+    --chart-1: oklch(0.7 0.28 180);
+    --chart-2: oklch(0.75 0.3 320);
+    --chart-3: oklch(0.68 0.26 280);
+    --chart-4: oklch(0.72 0.27 140);
+    --chart-5: oklch(0.65 0.28 0);
+
+    /* Sidebar */
+    --sidebar: oklch(0.14 0.025 280);
+    --sidebar-foreground: oklch(0.95 0.03 180);
+    --sidebar-primary: oklch(0.7 0.28 180);
+    --sidebar-primary-foreground: oklch(0.1 0.02 280);
+    --sidebar-accent: oklch(0.25 0.04 280);
+    --sidebar-accent-foreground: oklch(0.95 0.03 180);
+    --sidebar-border: oklch(0.3 0.15 180);
+    --sidebar-ring: oklch(0.7 0.28 180);
+
+    /* Other */
+    --radius: 0.25rem;
+}
