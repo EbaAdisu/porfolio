@@ -12,6 +12,8 @@ import { ThemeConfig } from '@/lib/theme-system'
 interface ThemePreviewProps {
     theme: ThemeConfig
     onClick?: () => void
+    onMouseEnter?: () => void
+    onMouseLeave?: () => void
     isActive?: boolean
     className?: string
 }
@@ -19,12 +21,16 @@ interface ThemePreviewProps {
 export function ThemePreview({
     theme,
     onClick,
+    onMouseEnter,
+    onMouseLeave,
     isActive = false,
     className = '',
 }: ThemePreviewProps) {
     return (
         <button
             onClick={onClick}
+            onMouseEnter={onMouseEnter}
+            onMouseLeave={onMouseLeave}
             className={`group relative w-full text-left transition-all ${className}`}
             style={{
                 opacity: isActive ? 1 : 0.8,
@@ -185,13 +191,8 @@ export function CompactThemePreview({
     onClick,
     isActive = false,
 }: ThemePreviewProps) {
-    return (
-        <button
-            onClick={onClick}
-            className={`flex items-center gap-3 p-2 rounded-lg w-full hover:bg-accent transition-colors ${
-                isActive ? 'bg-accent' : ''
-            }`}
-        >
+    const content = (
+        <>
             {/* Color swatches */}
             <div className="flex gap-1">
                 {[
@@ -229,6 +230,24 @@ export function CompactThemePreview({
                     <polyline points="20 6 9 17 4 12" />
                 </svg>
             )}
-        </button>
+        </>
     )
+
+    // If onClick is provided, render as button (standalone use)
+    // Otherwise render as div (for use inside DropdownMenuItem)
+    if (onClick) {
+        return (
+            <button
+                onClick={onClick}
+                className={`flex items-center gap-3 p-2 rounded-lg w-full hover:bg-accent transition-colors ${
+                    isActive ? 'bg-accent' : ''
+                }`}
+            >
+                {content}
+            </button>
+        )
+    }
+
+    // For dropdown menu items, just render content
+    return <div className="flex items-center gap-3 w-full">{content}</div>
 }

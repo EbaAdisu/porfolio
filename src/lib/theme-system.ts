@@ -287,28 +287,60 @@ export function mergeThemes(
     base: ThemeConfig,
     override: Partial<ThemeConfig>
 ): ThemeConfig {
-    return {
+    const result: ThemeConfig = {
         ...base,
         ...override,
         colors: {
             ...base.colors,
             ...override.colors,
         },
-        fonts: {
-            ...base.fonts,
-            ...override.fonts,
-        },
-        animations: {
+    }
+
+    // Handle optional fonts
+    if (base.fonts || override.fonts) {
+        result.fonts = {
+            heading:
+                override.fonts?.heading ?? base.fonts?.heading ?? 'inherit',
+            body: override.fonts?.body ?? base.fonts?.body ?? 'inherit',
+            mono: override.fonts?.mono ?? base.fonts?.mono ?? 'monospace',
+        }
+    }
+
+    // Handle optional animations
+    if (base.animations || override.animations) {
+        result.animations = {
             duration: {
-                ...base.animations?.duration,
-                ...override.animations?.duration,
+                fast:
+                    override.animations?.duration?.fast ??
+                    base.animations?.duration?.fast ??
+                    '200ms',
+                normal:
+                    override.animations?.duration?.normal ??
+                    base.animations?.duration?.normal ??
+                    '300ms',
+                slow:
+                    override.animations?.duration?.slow ??
+                    base.animations?.duration?.slow ??
+                    '500ms',
             },
             easing: {
-                ...base.animations?.easing,
-                ...override.animations?.easing,
+                default:
+                    override.animations?.easing?.default ??
+                    base.animations?.easing?.default ??
+                    'ease-in-out',
+                smooth:
+                    override.animations?.easing?.smooth ??
+                    base.animations?.easing?.smooth ??
+                    'cubic-bezier(0.4, 0, 0.2, 1)',
+                bounce:
+                    override.animations?.easing?.bounce ??
+                    base.animations?.easing?.bounce ??
+                    'cubic-bezier(0.68, -0.55, 0.265, 1.55)',
             },
-        },
+        }
     }
+
+    return result
 }
 
 // ============================================================================

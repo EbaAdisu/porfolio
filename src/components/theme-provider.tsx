@@ -3,7 +3,7 @@
 import { useThemeCustomization } from '@/hooks/useThemeCustomization'
 import { themeRegistry } from '@/lib/theme-presets'
 import { getCustomThemeFromURL, getThemeFromURL } from '@/lib/theme-storage'
-import { applyTheme } from '@/lib/theme-system'
+import { applyTheme, ThemeConfig } from '@/lib/theme-system'
 import {
     ThemeProvider as NextThemesProvider,
     useTheme as useNextTheme,
@@ -62,7 +62,7 @@ function EnhancedThemeProvider({ children }: { children: React.ReactNode }) {
         console.log('🔄 Theme changed to:', currentTheme)
 
         // Get theme config from preset themes
-        let themeConfig = themeRegistry[currentTheme]
+        let themeConfig: ThemeConfig | undefined = themeRegistry[currentTheme]
 
         // If not found in presets, check custom themes
         if (!themeConfig) {

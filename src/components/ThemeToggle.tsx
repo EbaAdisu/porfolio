@@ -32,6 +32,7 @@ export function ThemeToggle() {
     const allAvailableThemes = useAllThemes()
 
     const handleThemeSelect = (themeId: string) => {
+        console.log('🎯 ThemeToggle: Selecting theme:', themeId)
         setTheme(themeId)
         // Also update next-themes for dark/light detection
         if (themeId === 'light' || themeId === 'dark') {
@@ -52,7 +53,7 @@ export function ThemeToggle() {
                 <DropdownMenuContent align="end" className="w-64">
                     {/* Quick theme switchers */}
                     {allThemes.slice(0, 5).map((theme) => (
-                        <DropdownMenuItem 
+                        <DropdownMenuItem
                             key={theme.id}
                             onClick={(e) => {
                                 e.preventDefault()
