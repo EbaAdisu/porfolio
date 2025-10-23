@@ -138,6 +138,34 @@ export const comingSoonProjects: ComingSoonProject[] = [
             'IPFS metadata storage',
         ],
     },
+    {
+        id: 'decentralized-messaging',
+        title: 'Decentralized Messaging App',
+        description:
+            'Privacy-focused messaging app with IPFS storage and blockchain identity verification',
+        category: 'blockchain',
+        technologies: [
+            'IPFS',
+            'Web3.js',
+            'React',
+            'Node.js',
+            'WebRTC',
+            'Socket.io',
+            'libp2p',
+        ],
+        difficulty: 'Advanced',
+        estimatedTime: '6-8 weeks',
+        features: [
+            'Decentralized architecture',
+            'IPFS message storage',
+            'End-to-end encryption',
+            'Real-time messaging',
+            'File sharing',
+            'Group chats',
+            'Voice messages',
+            'Cross-platform support',
+        ],
+    },
 
     // AI & ML
     {
@@ -251,6 +279,37 @@ export const comingSoonProjects: ComingSoonProject[] = [
             'Presence awareness',
             'Comments and annotations',
             'Version history',
+        ],
+    },
+    {
+        id: 'smart-loan-tracker',
+        title: 'Smart Loan Tracker App',
+        description:
+            'Comprehensive loan management with payment optimization and debt reduction visualization',
+        category: 'fullstack',
+        technologies: [
+            'Next.js',
+            'TypeScript',
+            'Prisma',
+            'PostgreSQL',
+            'Chart.js',
+            'React Hook Form',
+            'Tailwind CSS',
+            'NextAuth.js',
+        ],
+        difficulty: 'Intermediate',
+        estimatedTime: '4-5 weeks',
+        features: [
+            'Multi-loan management',
+            'Payment calculator',
+            'Debt snowball/avalanche strategies',
+            'Visual analytics',
+            'Payment reminders',
+            'Export reports',
+            'Refinancing calculator',
+            'Goal setting',
+            'Mobile responsive',
+            'Data security',
         ],
     },
 
